@@ -1,6 +1,6 @@
 import dva from 'dva'
 import createLoading from 'dva-loading'
-// import models from 'models'
+import models from 'models'
 import './index.css'
 
 // 1. Initialize
@@ -10,10 +10,7 @@ const app = dva()
 app.use(createLoading())
 
 // 3. Model
-/*models.forEach((m) => {
-  app.model(m);
-})*/
-app.model(require("./models/global"))
+models.forEach((m) => app.model(m))
 
 // 4. Router
 app.router(require('./router'))

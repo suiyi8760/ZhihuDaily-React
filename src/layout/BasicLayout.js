@@ -50,7 +50,9 @@ class BasicLayout extends React.Component {
           open={this.state.drawerOpen}
           onOpenChange={this.onOpenChange}
         >
-          Click upper-left corner
+          <Switch>
+            <Route path="/home" component={}/>
+          </Switch>
         </Drawer>
 
       </div>
