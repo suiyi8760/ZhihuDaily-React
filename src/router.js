@@ -1,4 +1,5 @@
 import React from 'react'
+import {dynamic} from 'dva'
 import {Switch, Route, Redirect, Router} from 'dva/router'
 import BasicLayout from 'layout/BasicLayout'
 

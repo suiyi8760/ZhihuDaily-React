@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Home = () => {
+const News = () => {
   return (<h1>Home</h1>)
 }
 
-export default Home
+export default News

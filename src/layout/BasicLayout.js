@@ -1,7 +1,11 @@
 import {Drawer, List, NavBar, Icon} from 'antd-mobile'
+import {connect} from 'dva'
+import {Switch, Route, Redirect} from 'dva/router'
 import {config} from 'utils'
 import styles from './BasicLayout.less'
+import News from 'routes/news'
 
+@connect(({global}) => global)
 class BasicLayout extends React.Component {
   constructor(props) {
     super(props)
@@ -10,26 +14,32 @@ class BasicLayout extends React.Component {
     }
   }
 
-  onOpenChange = (event) => {
-    console.log(event);
+  onOpenChange = () => {
     this.setState({drawerOpen: !this.state.drawerOpen})
   }
 
+  themeClick = e => e
+
   render() {
+
+    const {themeList} = this.props
 
     const sidebar = (
       <List>
-        {[...Array(20).keys()].map((i, index) => {
-          if (index === 0) {
-            return (<List.Item key={index}
-                               thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
-                               multipleLine
-            >Category</List.Item>)
-          }
-          return (<List.Item key={index}
-                             thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
-          >Category{index}</List.Item>)
-        })}
+        <List.Item>首 页</List.Item>
+        {
+          themeList.map((item, index) => {
+            return (
+              <List.Item
+                key={index}
+                thumb={item.thumbnail}
+                onClick={this.themeClick}
+              >
+                {item.name}
+              </List.Item>
+            )
+          })
+        }
       </List>
     )
 
@@ -51,7 +61,8 @@ class BasicLayout extends React.Component {
           onOpenChange={this.onOpenChange}
         >
           <Switch>
-            <Route path="/home" component={}/>
+            <Route path="/news" component={News}/>
+            <Redirect to="/news"/>
           </Switch>
         </Drawer>
 

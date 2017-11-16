@@ -13,17 +13,22 @@ export default {
   publicPath: `/${version}/`,
   outputPath: `./dist/${version}`,
   // 接口代理示例
-  /*proxy: {
+  proxy: {
     "/": {
-      "target": "http://my.proxy.com/",
+      "target": "https://news-at.zhihu.com",
+      "changeOrigin": true
+    },
+    "/pic":{
+      "target": "http://pic3.zhimg.com",
       "changeOrigin": true
     }
-  },*/
+  },
   env: {
     development: {
       extraBabelPlugins: [
         "dva-hmr",
         "transform-runtime",
+        "transform-decorators-legacy",
         [
           "import",
           {
