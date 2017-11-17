@@ -15,11 +15,7 @@ export default {
   // 接口代理示例
   proxy: {
     "/": {
-      "target": "https://news-at.zhihu.com",
-      "changeOrigin": true
-    },
-    "/pic":{
-      "target": "http://pic3.zhimg.com",
+      "target": "https://news-at.zhihu.com/",
       "changeOrigin": true
     }
   },

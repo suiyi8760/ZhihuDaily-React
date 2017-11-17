@@ -5,6 +5,8 @@ import {config} from 'utils'
 import styles from './BasicLayout.less'
 import News from 'routes/news'
 
+const {iconFontJS, iconFontCSS} = config
+
 @connect(({global}) => global)
 class BasicLayout extends React.Component {
   constructor(props) {
@@ -31,8 +33,8 @@ class BasicLayout extends React.Component {
           themeList.map((item, index) => {
             return (
               <List.Item
+                arrow="horizontal"
                 key={index}
-                thumb={item.thumbnail}
                 onClick={this.themeClick}
               >
                 {item.name}
@@ -45,8 +47,12 @@ class BasicLayout extends React.Component {
 
     return (
       <div>
+        <Helmet>
+          {iconFontJS && <script src={iconFontJS}/>}
+          {iconFontCSS && <link rel="stylesheet" href={iconFontCSS}/>}
+        </Helmet>
         <NavBar
-          icon={<Icon type="ellipsis"/>}
+          icon={<Icon type="bars"/>}
           onLeftClick={this.onOpenChange}
         >
           {config.name}
