@@ -5,6 +5,7 @@ export default {
   namespace: 'global',
 
   state: {
+    curTheme:'home',
     themeList: []
   },
 

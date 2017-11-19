@@ -1,3 +1,5 @@
+@import "~themes/vars";
+
 .my_drawer {
   position: relative;
   overflow: auto;
@@ -13,4 +15,17 @@
       }
     }
   }
+}
+
+.theme_home{
+  color:@brand-primary;
+  :global {
+    .am-list-content {
+      color: @brand-primary !important;
+    }
+  }
+}
+
+.active_theme {
+  background-color: @fill-tap;
 }
