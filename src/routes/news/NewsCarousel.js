@@ -29,7 +29,6 @@ export default class NewsCarousel extends Component {
             <Link to="/" key={item} style={hProp}>
               <img
                 src={item.image}
-                alt=""
                 onLoad={() => {
                   // fire window resize event to change height
                   window.dispatchEvent(new Event('resize'))
