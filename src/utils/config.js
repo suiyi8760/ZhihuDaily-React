@@ -6,6 +6,7 @@ export default {
   iconFontCSS: '/iconfont.css',
   iconFontJS: '/iconfont.js',
   api: {
-    themes: `${apiUrl}/themes`
+    themes: `${apiUrl}/themes`,
+    news: `${apiUrl}/news`
   },
 }

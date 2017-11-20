@@ -75,7 +75,7 @@ class BasicLayout extends React.Component {
         <Drawer
           className={styles.my_drawer}
           style={{minHeight: document.documentElement.clientHeight}}
-          contentStyle={{color: '#A6A6A6', textAlign: 'center', paddingTop: 42}}
+          contentStyle={{color: '#A6A6A6'}}
           enableDragHandle
           sidebar={sidebar}
           open={this.state.drawerOpen}

@@ -1,7 +1,12 @@
 import React from 'react'
+import NewsCarousel from './NewsCarousel'
 
 const News = () => {
-  return (<h1>Home</h1>)
+  return (
+    <div>
+      <NewsCarousel/>
+    </div>
+  )
 }
 
 export default News
