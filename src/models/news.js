@@ -6,7 +6,7 @@ export default {
 
   state: {
     top_stories: [],
-    stories: []
+    stories: {}
   },
 
   subscriptions: {
@@ -31,10 +31,14 @@ export default {
   },
 
   reducers: {
-    setLatestNews(state,{payload}) {
+    setLatestNews(state, {payload}) {
       return {
         ...state,
-        ...payload
+        top_stories: payload.top_stories,
+        stories: {
+          ...state.stories,
+          [payload.date]: payload.stories
+        }
       }
     }
   },
