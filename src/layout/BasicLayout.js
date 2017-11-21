@@ -1,4 +1,4 @@
-import {Drawer, List, NavBar} from 'antd-mobile'
+import {Drawer, List, NavBar, PullToRefresh} from 'antd-mobile'
 import {connect} from 'dva'
 import {Switch, Route, Redirect} from 'dva/router'
 import Helmet from 'react-helmet'
@@ -81,10 +81,12 @@ class BasicLayout extends React.Component {
           open={this.state.drawerOpen}
           onOpenChange={this.onOpenChange}
         >
-          <Switch>
-            <Route path="/news" component={News}/>
-            <Redirect to="/news"/>
-          </Switch>
+          <PullToRefresh>
+            <Switch>
+              <Route path="/news" component={News}/>
+              <Redirect to="/news"/>
+            </Switch>
+          </PullToRefresh>
         </Drawer>
 
       </div>
