@@ -60,7 +60,10 @@ export default class NewsList extends React.Component {
     );
 
     const row = (rowData, sectionID, rowID) => {
-      
+      console.log(rowData, sectionID, rowID, '+++')
+      return (
+        <div >{rowData.title}</div>
+      )
     };
 
     return (
@@ -70,15 +73,16 @@ export default class NewsList extends React.Component {
           {this.state.isLoading ? 'Loading...' : 'Loaded'}
         </div>)}
         renderSectionHeader={
-          sectionData => {
-            console.log(sectionData);
-            return ( <div>{sectionData}</div>)
+          (sectionData, sectionID) => {
+            console.log(sectionData, sectionID);
+            return ( <div>{sectionID}</div>)
           }
         }
         renderRow={row}
         renderSeparator={separator}
         style={{
-          height: this.state.height
+          height: this.state.height,
+          overflow: 'hidden'
         }}
         onScroll={() => {
           console.log('scroll');

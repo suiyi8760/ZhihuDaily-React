@@ -131,7 +131,7 @@ export default class NewsList extends React.Component {
     );
     let index = data.length - 1;
     const row = (rowData, sectionID, rowID) => {
-      console.log(rowData,'row');
+      console.log(rowData, 'row');
       if (index < 0) {
         index = data.length - 1;
       }
@@ -164,9 +164,11 @@ export default class NewsList extends React.Component {
         renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
           {this.state.isLoading ? 'Loading...' : 'Loaded'}
         </div>)}
-        renderSectionHeader={sectionData => (
-          <div>{`Task ${sectionData.split(' ')[1]}`}</div>
-        )}
+        renderSectionHeader={
+          sectionData => (
+            <div>{`Task ${sectionData.split(' ')[1]}`}</div>
+          )
+        }
         renderBodyComponent={() => <MyBody/>}
         renderRow={row}
         renderSeparator={separator}

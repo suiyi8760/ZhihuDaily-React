@@ -22,7 +22,6 @@ export default {
   effects: {
     * getLatestNews(_, {call, put}) {
       const data = yield call(getNews, '/latest')
-      console.log(data)
       yield put({
         type: 'setLatestNews',
         payload: data.data

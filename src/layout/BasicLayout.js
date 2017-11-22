@@ -7,6 +7,7 @@ import Iconfont from 'components/Iconfont'
 import {config} from 'utils'
 import styles from './BasicLayout.less'
 import News from 'routes/news'
+import Routers from "../router";
 
 const {iconFontJS, iconFontCSS} = config
 
@@ -75,13 +76,13 @@ class BasicLayout extends React.Component {
         <Drawer
           className={styles.my_drawer}
           style={{minHeight: document.documentElement.clientHeight}}
-          contentStyle={{color: '#A6A6A6'}}
           enableDragHandle
           sidebar={sidebar}
           open={this.state.drawerOpen}
           onOpenChange={this.onOpenChange}
         >
           <Switch>
+            {/*<Route path="/themes" component={Themes}/>*/}
             <Route path="/news" component={News}/>
             <Redirect to="/news"/>
           </Switch>
