@@ -75,7 +75,7 @@ class BasicLayout extends React.Component {
         </NavBar>
         <Drawer
           className={styles.my_drawer}
-          style={{minHeight: document.documentElement.clientHeight}}
+          style={{minHeight: document.documentElement.clientHeight - 45}}
           enableDragHandle
           sidebar={sidebar}
           open={this.state.drawerOpen}

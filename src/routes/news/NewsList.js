@@ -1,5 +1,6 @@
+import ReactDOM from 'react-dom'
 import {connect} from 'dva'
-import {ListView} from 'antd-mobile'
+import {ListView, List} from 'antd-mobile'
 
 @connect(({news}) => news)
 export default class NewsList extends React.Component {
@@ -21,8 +22,11 @@ export default class NewsList extends React.Component {
   // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
   componentWillReceiveProps(nextProps) {
     if (nextProps.stories !== this.props.stories) {
+      const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).offsetTop;
+      console.log(hei, document.documentElement.clientHeight, ReactDOM.findDOMNode(this.lv));
       this.setState({
         dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.stories),
+        height: hei
       });
     }
   }
@@ -45,7 +49,6 @@ export default class NewsList extends React.Component {
   }
 
   render() {
-    console.log(this.state);
 
     const separator = (sectionID, rowID) => (
       <div
@@ -60,30 +63,30 @@ export default class NewsList extends React.Component {
     );
 
     const row = (rowData, sectionID, rowID) => {
-      console.log(rowData, sectionID, rowID, '+++')
       return (
-        <div >{rowData.title}</div>
+        <List.Item
+          wrap={true}
+        >
+          {rowData.title}
+        </List.Item>
       )
     };
 
     return (
       <ListView
+        ref={el => this.lv = el}
         dataSource={this.state.dataSource}
         renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
           {this.state.isLoading ? 'Loading...' : 'Loaded'}
         </div>)}
         renderSectionHeader={
           (sectionData, sectionID) => {
-            console.log(sectionData, sectionID);
             return ( <div>{sectionID}</div>)
           }
         }
         renderRow={row}
         renderSeparator={separator}
-        style={{
-          height: this.state.height,
-          overflow: 'hidden'
-        }}
+        useBodyScroll
         onScroll={() => {
           console.log('scroll');
         }}
