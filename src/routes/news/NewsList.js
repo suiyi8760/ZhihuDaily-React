@@ -1,5 +1,6 @@
 import {connect} from 'dva'
 import {ListView, List} from 'antd-mobile'
+import Panel from 'components/Panel'
 import styles from './NewsList.less'
 
 @connect(({news}) => news)
@@ -31,18 +32,17 @@ export default class NewsList extends React.Component {
   onEndReached = (event) => {
     // load new data
     // hasMore: from backend data, indicates whether it is the last page, here is false
-    if (this.state.isLoading && !this.state.hasMore) {
+    /*if (this.state.isLoading && !this.state.hasMore) {
       return;
-    }
+    }*/
     console.log('reach end', event);
-    this.setState({isLoading: true});
+    /*this.setState({isLoading: true});
     setTimeout(() => {
-      genData(++pageIndex);
       this.setState({
         dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
         isLoading: false,
       });
-    }, 1000);
+    }, 1000);*/
   }
 
   render() {
@@ -61,12 +61,7 @@ export default class NewsList extends React.Component {
 
     const row = (rowData, sectionID, rowID) => {
       return (
-        <List.Item
-          wrap={true}
-          extra={<img style={{width: 75, height: 70}} src={rowData.images[0]}/>}
-        >
-          {rowData.title}
-        </List.Item>
+        <Panel rowData={rowData}/>
       )
     };
 
@@ -88,6 +83,9 @@ export default class NewsList extends React.Component {
         onScroll={() => {
           console.log('scroll');
         }}
+        scrollRenderAheadDistance={500}
+        onEndReached={this.onEndReached}
+        onEndReachedThreshold={10}
       />
     );
   }
