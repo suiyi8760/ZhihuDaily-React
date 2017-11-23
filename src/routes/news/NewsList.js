@@ -79,7 +79,7 @@ export default class NewsList extends React.Component {
         }
         renderRow={row}
         renderSeparator={separator}
-        useBodyScroll
+        useZscroller
         onScroll={() => {
           console.log('scroll');
         }}
