@@ -1,6 +1,6 @@
-import ReactDOM from 'react-dom'
 import {connect} from 'dva'
 import {ListView, List} from 'antd-mobile'
+import styles from './NewsList.less'
 
 @connect(({news}) => news)
 export default class NewsList extends React.Component {
@@ -22,11 +22,8 @@ export default class NewsList extends React.Component {
   // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
   componentWillReceiveProps(nextProps) {
     if (nextProps.stories !== this.props.stories) {
-      const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).offsetTop;
-      console.log(hei, document.documentElement.clientHeight, ReactDOM.findDOMNode(this.lv));
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.stories),
-        height: hei
+        dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.stories)
       });
     }
   }
@@ -66,6 +63,7 @@ export default class NewsList extends React.Component {
       return (
         <List.Item
           wrap={true}
+          extra={<img style={{width: 75, height: 70}} src={rowData.images[0]}/>}
         >
           {rowData.title}
         </List.Item>
@@ -74,7 +72,7 @@ export default class NewsList extends React.Component {
 
     return (
       <ListView
-        ref={el => this.lv = el}
+        className={styles.NewsList}
         dataSource={this.state.dataSource}
         renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
           {this.state.isLoading ? 'Loading...' : 'Loaded'}

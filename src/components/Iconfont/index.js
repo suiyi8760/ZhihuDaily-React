@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import './iconfont.less'
+import './index.less'
 
 const Iconfont = ({type, size = 'md'}) => {
   return (
