@@ -1,13 +1,13 @@
 import ReactDOM from 'react-dom'
 import {connect} from 'dva'
-import {ListView, List} from 'antd-mobile'
+import {ListView, WingBlank} from 'antd-mobile'
 import Panel from 'components/Panel'
 import NewsCarousel from './NewsCarousel'
 import styles from './NewsList.less'
 
 //List Wrapper
 const ListBody = (props) => (
-  <div className="am-list-body my-body">
+  <div className="am-list-body listBody">
     <NewsCarousel/>
     {props.children}
   </div>
@@ -64,9 +64,7 @@ export default class NewsList extends React.Component {
         key={`${sectionID}-${rowID}`}
         style={{
           backgroundColor: '#F5F5F9',
-          height: 8,
-          borderTop: '1px solid #ECECED',
-          borderBottom: '1px solid #ECECED',
+          height: 8
         }}
       />
     );
@@ -96,7 +94,7 @@ export default class NewsList extends React.Component {
         }
         renderBodyComponent={() => <ListBody/>}
         renderRow={row}
-        renderSeparator={separator}
+        // renderSeparator={separator}
         onScroll={() => {
           console.log('scroll');
         }}

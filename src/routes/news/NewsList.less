@@ -2,13 +2,17 @@
 
 .NewsList {
   :global {
+    .listBody {
+      .am-list-line {
+        &:after {
+          background-color: transparent !important;
+        }
+      }
+    }
     .am-list-body {
       & > .am-list-item {
-        background-color: #F5F5F9;
+        background-color: @fill-body;
         .am-list-line {
-          &:after {
-            background-color: transparent !important;
-          }
           .am-list-content {
             font-size: 12px;
           }
