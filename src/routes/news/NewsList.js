@@ -1,7 +1,17 @@
+import ReactDOM from 'react-dom'
 import {connect} from 'dva'
 import {ListView, List} from 'antd-mobile'
 import Panel from 'components/Panel'
+import NewsCarousel from './NewsCarousel'
 import styles from './NewsList.less'
+
+//List Wrapper
+const ListBody = (props) => (
+  <div className="am-list-body my-body">
+    <NewsCarousel/>
+    {props.children}
+  </div>
+)
 
 @connect(({news}) => news)
 export default class NewsList extends React.Component {
@@ -16,15 +26,17 @@ export default class NewsList extends React.Component {
     this.state = {
       dataSource,
       isLoading: true,
-      height: document.documentElement.clientHeight * 3 / 4,
+      height: document.documentElement.clientHeight - 45,
     };
   }
 
   // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
   componentWillReceiveProps(nextProps) {
+    const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop - 45
     if (nextProps.stories !== this.props.stories) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.stories)
+        dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.stories),
+        height: hei
       });
     }
   }
@@ -67,7 +79,12 @@ export default class NewsList extends React.Component {
 
     return (
       <ListView
+        ref={el => this.lv = el}
         className={styles.NewsList}
+        style={{
+          height: this.state.height,
+          overflow: 'auto',
+        }}
         dataSource={this.state.dataSource}
         renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
           {this.state.isLoading ? 'Loading...' : 'Loaded'}
@@ -77,9 +94,9 @@ export default class NewsList extends React.Component {
             return ( <div>{sectionID}</div>)
           }
         }
+        renderBodyComponent={() => <ListBody/>}
         renderRow={row}
         renderSeparator={separator}
-        useZscroller
         onScroll={() => {
           console.log('scroll');
         }}

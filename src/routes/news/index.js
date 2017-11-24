@@ -5,10 +5,7 @@ import NewsList from './NewsList'
 
 const News = () => {
   return (
-    <div>
-      <NewsCarousel/>
-      <NewsList/>
-    </div>
+    <NewsList/>
   )
 }
 

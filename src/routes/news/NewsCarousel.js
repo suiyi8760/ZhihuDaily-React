@@ -19,6 +19,7 @@ export default class NewsCarousel extends Component {
     return (
       <Carousel
         className={styles.news_carousel}
+        style={{width: document.documentElement.clientWidth}}
         autoplay={true}
         autoplayInterval={5000}
         resetAutoplay={false}
