@@ -21,6 +21,7 @@
     "dva-loading": "^1.0.4",
     "ejs-loader": "^0.3.0",
     "less-vars-to-js": "^1.2.0",
+    "moment": "^2.19.2",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-dom": "16.0.0",
