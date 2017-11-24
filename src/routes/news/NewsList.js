@@ -71,7 +71,9 @@ export default class NewsList extends React.Component {
 
     const row = (rowData, sectionID, rowID) => {
       return (
-        <Panel rowData={rowData}/>
+        <WingBlank size="md">
+          <Panel rowData={rowData}/>
+        </WingBlank>
       )
     };
 
@@ -84,9 +86,13 @@ export default class NewsList extends React.Component {
           overflow: 'auto',
         }}
         dataSource={this.state.dataSource}
-        renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
-          {this.state.isLoading ? 'Loading...' : 'Loaded'}
-        </div>)}
+        renderFooter={
+          () => (
+            <div style={{padding: 30, textAlign: 'center'}}>
+              {this.state.isLoading ? 'Loading...' : 'Loaded'}
+            </div>
+          )
+        }
         renderSectionHeader={
           (sectionData, sectionID) => {
             return ( <div>{sectionID}</div>)

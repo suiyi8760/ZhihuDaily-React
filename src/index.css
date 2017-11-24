@@ -7,4 +7,3 @@ html, body, :global(#root) {
 div, h1, h2, h3, h4, h5, h6, p, section, ul, li {
   box-sizing: border-box;
 }
-

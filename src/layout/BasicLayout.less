@@ -1,5 +1,14 @@
 @import "~themes/vars";
 
+:global {
+  //所有listView body的背景均为@fill-body
+  .am-list-view-scrollview-content {
+    .am-list-body {
+      background-color: @fill-body;
+    }
+  }
+}
+
 .my_drawer {
   position: relative;
   overflow: auto;
