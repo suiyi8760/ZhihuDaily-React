@@ -3,6 +3,23 @@
 .panel {
   margin-bottom: 8px;
   :global {
+    .extra_box {
+      position: relative;
+      .multi-tips {
+        padding: 0 4px;
+        position: absolute;
+        right: 0;
+        bottom: 0px;
+        color: #fff;
+        font-size: 12px;
+        background-color: rgba(0,0,0,.5);
+        .icon{
+          position: relative;
+          top: -1px;
+          margin-right: 2px;
+        }
+      }
+    }
     .am-list-item {
       min-height: 60px;
       border-radius: @border-radius-base;

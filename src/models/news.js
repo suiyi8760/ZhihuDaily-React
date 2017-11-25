@@ -39,6 +39,7 @@ export default {
       })
     },
     * getBeforeNews({payload}, {call, put}) {
+      // console.log(payload);
       const data = yield call(getNews, `before/${payload}`)
       yield put({
         type: 'setBeforeNews',

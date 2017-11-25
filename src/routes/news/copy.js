@@ -116,7 +116,6 @@ export default class NewsList extends React.Component {
   }
 
   render() {
-    console.log(this.state);
 
     const separator = (sectionID, rowID) => (
       <div

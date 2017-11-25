@@ -19,7 +19,16 @@ let sectionIDs = [];
 
 //处理传入的数据源输出包含sectionHeader数据和源数据的dataBlob和排序后的sectionIdentities
 function genData(data) {
-  const sectionArr = Object.keys(data).sort((pre, next) => pre < next)
+  const sectionArr = Object.keys(data).sort((pre, next) => {
+    if (pre > next) {
+      return -1
+    }
+    if (pre < next) {
+      return 1
+    }
+    return 0
+  })
+
   sectionIDs = [...sectionArr]
   dataBlobs = {
     ...data,
@@ -28,6 +37,7 @@ function genData(data) {
   for (let value of sectionArr) {
     dataBlobs.sectionHeader[value] = value
   }
+  console.log(sectionArr, sectionIDs);
 }
 
 @connect(({news}) => news)
@@ -38,7 +48,10 @@ export default class NewsList extends React.Component {
     genData(props.stories)
 
     const dataSource = new ListView.DataSource({
-      getSectionHeaderData: (dataBlob, sectionID) => dataBlob.sectionHeader[sectionID],
+      getSectionHeaderData: (dataBlob, sectionID) => {
+        // console.log(dataBlob,sectionID);
+        return dataBlob.sectionHeader[sectionID]
+      },
       rowHasChanged: (row1, row2) => row1 !== row2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
     })
@@ -65,7 +78,7 @@ export default class NewsList extends React.Component {
   onEndReached = (event) => {
     console.log('reach end', event)
     const {dispatch, latestLoad} = this.props
-    dispatch({type: 'news/getBeforeNews',payload:latestLoad})
+    dispatch({type: 'news/getBeforeNews', payload: latestLoad})
   }
 
   render() {
@@ -73,14 +86,14 @@ export default class NewsList extends React.Component {
     const row = (rowData, sectionID, rowID) => {
       return (
         <WingBlank size="md">
-          <Panel rowData={rowData}/>
+          <Panel rowData={rowData} isMultiPics={rowData.multipic}/>
         </WingBlank>
       )
-    };
+    }
 
     const sectionHeader = (sectionData, sectionID) => {
       const sectionText = sectionID === moment().format('YYYYMMDD') ? '今日热闻' : moment(sectionID, 'YYYYMMDD').format('YYYY年MM月DD日')
-      return ( <div>{sectionText}</div>)
+      return (<div>{sectionText}</div>)
     }
 
     return (
@@ -102,10 +115,12 @@ export default class NewsList extends React.Component {
         renderSectionHeader={sectionHeader}
         renderBodyComponent={() => <ListBody/>}
         renderRow={row}
-        pageSize={5}
-        onScroll={e => {
-          // console.log(e);
-        }}
+        pageSize={6}
+        onScroll={
+          e => {
+            // console.log(e);
+          }
+        }
         scrollEventThrottle={150}
         onEndReached={this.onEndReached}
         onEndReachedThreshold={10}
