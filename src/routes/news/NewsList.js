@@ -23,9 +23,9 @@ function genData(data) {
   sectionIDs = [...sectionArr]
   dataBlobs = {
     ...data,
-    sectionHeader:{}
+    sectionHeader: {}
   }
-  for(let value of sectionArr){
+  for (let value of sectionArr) {
     dataBlobs.sectionHeader[value] = value
   }
 }
@@ -56,26 +56,16 @@ export default class NewsList extends React.Component {
       const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop - 45
       genData(nextProps.stories)
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs,sectionIDs),
+        dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs),
         height: hei
       })
     }
   }
 
   onEndReached = (event) => {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
-    /*if (this.state.isLoading && !this.state.hasMore) {
-      return;
-    }*/
-    console.log('reach end', event);
-    /*this.setState({isLoading: true});
-    setTimeout(() => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-        isLoading: false,
-      });
-    }, 1000);*/
+    console.log('reach end', event)
+    const {dispatch, latestLoad} = this.props
+    dispatch({type: 'news/getBeforeNews',payload:latestLoad})
   }
 
   render() {

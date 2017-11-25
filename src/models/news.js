@@ -38,7 +38,7 @@ export default {
         payload: data.data.date - 1
       })
     },
-    * getBeforeNews({payload}, {call, put, select}) {
+    * getBeforeNews({payload}, {call, put}) {
       const data = yield call(getNews, `before/${payload}`)
       yield put({
         type: 'setBeforeNews',
@@ -51,7 +51,7 @@ export default {
     setLatestNews(state, {payload}) {
       return {
         ...state,
-        latestLoad: +payload.date + 1,
+        latestLoad: payload.date,
         top_stories: payload.top_stories,
         stories: {
           ...state.stories,
@@ -62,7 +62,7 @@ export default {
     setBeforeNews(state, {payload}) {
       return {
         ...state,
-        latestLoad: +payload.date + 1,
+        latestLoad: payload.date,
         stories: {
           ...state.stories,
           [payload.date]: payload.stories
