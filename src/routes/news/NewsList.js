@@ -14,12 +14,31 @@ const ListBody = (props) => (
   </div>
 )
 
+let dataBlobs = {};
+let sectionIDs = [];
+
+//处理传入的数据源输出包含sectionHeader数据和源数据的dataBlob和排序后的sectionIdentities
+function genData(data) {
+  const sectionArr = Object.keys(data).sort((pre, next) => pre < next)
+  sectionIDs = [...sectionArr]
+  dataBlobs = {
+    ...data,
+    sectionHeader:{}
+  }
+  for(let value of sectionArr){
+    dataBlobs.sectionHeader[value] = value
+  }
+}
+
 @connect(({news}) => news)
 export default class NewsList extends React.Component {
   constructor(props) {
     super(props)
 
+    genData(props.stories)
+
     const dataSource = new ListView.DataSource({
+      getSectionHeaderData: (dataBlob, sectionID) => dataBlob.sectionHeader[sectionID],
       rowHasChanged: (row1, row2) => row1 !== row2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
     })
@@ -35,8 +54,9 @@ export default class NewsList extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.stories !== this.props.stories) {
       const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop - 45
+      genData(nextProps.stories)
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.stories),
+        dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs,sectionIDs),
         height: hei
       })
     }
@@ -93,7 +113,7 @@ export default class NewsList extends React.Component {
         renderBodyComponent={() => <ListBody/>}
         renderRow={row}
         onScroll={e => {
-          console.log(e);
+          // console.log(e);
         }}
         scrollEventThrottle={150}
         onEndReached={this.onEndReached}
