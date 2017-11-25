@@ -51,7 +51,7 @@ export default {
     setLatestNews(state, {payload}) {
       return {
         ...state,
-        latestLoad: Number(payload.date) + 1,
+        latestLoad: +payload.date + 1,
         top_stories: payload.top_stories,
         stories: {
           ...state.stories,
@@ -62,7 +62,7 @@ export default {
     setBeforeNews(state, {payload}) {
       return {
         ...state,
-        latestLoad: payload.date + 1,
+        latestLoad: +payload.date + 1,
         stories: {
           ...state.stories,
           [payload.date]: payload.stories

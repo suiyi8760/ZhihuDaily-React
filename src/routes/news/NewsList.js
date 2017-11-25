@@ -112,6 +112,7 @@ export default class NewsList extends React.Component {
         renderSectionHeader={sectionHeader}
         renderBodyComponent={() => <ListBody/>}
         renderRow={row}
+        pageSize={5}
         onScroll={e => {
           // console.log(e);
         }}
