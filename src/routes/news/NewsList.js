@@ -19,15 +19,7 @@ let sectionIDs = [];
 
 //处理传入的数据源输出包含sectionHeader数据和源数据的dataBlob和排序后的sectionIdentities
 function genData(data) {
-  const sectionArr = Object.keys(data).sort((pre, next) => {
-    if (pre > next) {
-      return -1
-    }
-    if (pre < next) {
-      return 1
-    }
-    return 0
-  })
+  const sectionArr = Object.keys(data).sort((pre, next) => Number(next) - Number(pre))
 
   sectionIDs = [...sectionArr]
   dataBlobs = {
