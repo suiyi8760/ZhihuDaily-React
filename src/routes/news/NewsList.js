@@ -29,7 +29,6 @@ function genData(data) {
   for (let value of sectionArr) {
     dataBlobs.sectionHeader[value] = value
   }
-  console.log(sectionArr, sectionIDs);
 }
 
 @connect(({news}) => news)
