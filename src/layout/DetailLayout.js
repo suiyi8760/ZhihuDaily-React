@@ -3,7 +3,6 @@ import {Switch, Route, Redirect} from 'dva/router'
 import Detail from 'routes/detail'
 
 const DetailLayout = ({match}) => {
-  console.log(match)
   return (
     <div>
       <NavBar/>

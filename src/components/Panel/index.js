@@ -1,8 +1,9 @@
 import {List} from 'antd-mobile'
+import {Link} from 'dva/router'
 import Iconfont from 'components/Iconfont'
 import styles from './index.less'
 
-const Panel = ({rowData, isMultiPics}) => {
+const Panel = ({rowData, isMultiPics, detailId}) => {
 
   const extraBox = (
     <div className="extra_box">
@@ -20,12 +21,15 @@ const Panel = ({rowData, isMultiPics}) => {
 
   return (
     <div className={styles.panel}>
-      <List.Item
-        wrap={true}
-        extra={extraBox}
-      >
-        {rowData.title}
-      </List.Item>
+      <Link to={`/detail/${detailId}`}>
+        <List.Item
+          onClick={e => e}
+          wrap
+          extra={extraBox}
+        >
+          {rowData.title}
+        </List.Item>
+      </Link>
     </div>
   )
 }

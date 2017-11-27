@@ -77,7 +77,11 @@ export default class NewsList extends React.Component {
     const row = (rowData, sectionID, rowID) => {
       return (
         <WingBlank size="md">
-          <Panel rowData={rowData} isMultiPics={rowData.multipic}/>
+          <Panel
+            rowData={rowData}
+            isMultiPics={rowData.multipic}
+            detailId={rowData.id}
+          />
         </WingBlank>
       )
     }

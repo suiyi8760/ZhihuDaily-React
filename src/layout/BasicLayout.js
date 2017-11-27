@@ -1,15 +1,11 @@
 import {Drawer, List, NavBar} from 'antd-mobile'
 import {connect} from 'dva'
 import {Switch, Route, Redirect} from 'dva/router'
-import Helmet from 'react-helmet'
 import classnames from 'classnames'
 import Iconfont from 'components/Iconfont'
 import {config} from 'utils'
 import styles from './BasicLayout.less'
 import News from 'routes/news'
-import Routers from "../router";
-
-const {iconFontJS, iconFontCSS} = config
 
 @connect(({global}) => global)
 class BasicLayout extends React.Component {
@@ -63,10 +59,6 @@ class BasicLayout extends React.Component {
 
     return (
       <div>
-        <Helmet>
-          {iconFontJS && <script src={iconFontJS}/>}
-          {iconFontCSS && <link rel="stylesheet" href={iconFontCSS}/>}
-        </Helmet>
         <NavBar
           icon={<Iconfont type="list"/>}
           onLeftClick={this.onOpenChange}

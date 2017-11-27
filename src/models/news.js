@@ -23,7 +23,6 @@ export default {
   effects: {
     * getLatestNews(_, {call, put}) {
       const data = yield call(getNews, 'latest')
-
       //初始化时分别获取今天、昨天、前天的热闻
       yield put({
         type: 'setLatestNews',
@@ -39,7 +38,6 @@ export default {
       })
     },
     * getBeforeNews({payload}, {call, put}) {
-      // console.log(payload);
       const data = yield call(getNews, `before/${payload}`)
       yield put({
         type: 'setBeforeNews',

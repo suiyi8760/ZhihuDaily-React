@@ -27,7 +27,7 @@ export default class NewsCarousel extends Component {
       >
         {
           top_stories.map(item => (
-            <Link to="/" key={item} style={hProp}>
+            <Link to={`detail/${item.id}`} key={item} style={hProp}>
               <img
                 src={item.image}
                 onLoad={() => {

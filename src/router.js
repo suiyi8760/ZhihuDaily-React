@@ -1,17 +1,27 @@
 import React from 'react'
 import {dynamic} from 'dva'
 import {Switch, Route, Redirect, Router} from 'dva/router'
+import Helmet from 'react-helmet'
+import {config} from 'utils'
 import {BasicLayout, DetailLayout} from 'layout'
+
+const {iconFontJS, iconFontCSS} = config
 
 const Routers = ({history}) => {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path="/detail" component={DetailLayout}/>
-        <Route path="/" component={BasicLayout}/>
-        <Redirect to="/"/>
-      </Switch>
-    </Router>
+    <div>
+      <Helmet>
+        {iconFontJS && <script src={iconFontJS}/>}
+        {iconFontCSS && <link rel="stylesheet" href={iconFontCSS}/>}
+      </Helmet>
+      <Router history={history}>
+        <Switch>
+          <Route path="/detail" component={DetailLayout}/>
+          <Route path="/" component={BasicLayout}/>
+          <Redirect to="/"/>
+        </Switch>
+      </Router>
+    </div>
   )
 }
 
