@@ -37,6 +37,7 @@ export default {
     production: {
       extraBabelPlugins: [
         "transform-runtime",
+        "transform-decorators-legacy",
         [
           "import",
           {
