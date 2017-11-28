@@ -6,11 +6,12 @@ import Detail from 'routes/detail'
 import styles from './DetailLayout.less'
 
 @connect(
-  ({detail: {extra_data}}) => extra_data || {}
+  ({detail: {extra_data}, loading}) => ({...extra_data, loading})
 )
 class DetailLayout extends React.Component {
   render() {
-    const {dispatch, history, match, comments, popularity} = this.props
+    const {dispatch, loading, history, match, comments, popularity} = this.props
+    const isLoading = loading.effects['detail/getDetail']
 
     return (
       <div className={styles.DetailLayout}>
@@ -27,8 +28,12 @@ class DetailLayout extends React.Component {
               <Iconfont type="collect" style={{marginRight: '30px'}}/>
             </div>,
             <div key={1}>
-              <Iconfont type="comment" style={{marginRight: '14px'}}>{comments || '...'}</Iconfont>
-              <Iconfont type="fabulous">{popularity || '...'}</Iconfont>
+              <Iconfont type="comment" style={{marginRight: '14px'}}>
+                {isLoading ? '...' : comments}
+                </Iconfont>
+              <Iconfont type="fabulous">
+                {isLoading ? '...' : popularity}
+                </Iconfont>
             </div>
           ]}
         />
