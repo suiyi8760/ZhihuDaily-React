@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom'
 import {connect} from 'dva'
 import {ListView, WingBlank} from 'antd-mobile'
 import moment from 'moment'
-import Panel from 'components/Panel'
+import {Panel} from 'components'
 import NewsCarousel from './NewsCarousel'
 import styles from './NewsList.less'
 

@@ -2,6 +2,7 @@ import {Component} from 'react'
 import {connect} from 'dva'
 import {Link} from 'dva/router'
 import {Carousel} from 'antd-mobile'
+import {TitleMask} from 'components'
 import styles from './NewsCarcousel.less'
 
 @connect(({news}) => news)
@@ -35,9 +36,7 @@ export default class NewsCarousel extends Component {
                   window.dispatchEvent(new Event('resize'))
                 }}
               />
-              <div className="carousel_mask">
-                <h2>{item.title}</h2>
-              </div>
+              <TitleMask title={item.title}/>
             </Link>
           ))
         }

@@ -1,8 +1,19 @@
 .detailContent {
   position: relative;
   overflow: auto;
-  :global{
-    .detailBody{
+  :global {
+    .imageTitle {
+      height: 200px;
+      position: absolute;
+      z-index: 1;
+      overflow: hidden;
+      img {
+        position: relative;
+        width: 100%;
+        top: -90px;
+      }
+    }
+    .detailBody {
       position: absolute;
       width: 100%;
     }

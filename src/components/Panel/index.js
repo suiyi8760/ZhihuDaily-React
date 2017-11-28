@@ -1,6 +1,6 @@
 import {List} from 'antd-mobile'
 import {Link} from 'dva/router'
-import Iconfont from 'components/Iconfont'
+import {Iconfont} from 'components'
 import styles from './index.less'
 
 const Panel = ({rowData, isMultiPics, detailId}) => {

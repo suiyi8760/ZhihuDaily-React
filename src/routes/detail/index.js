@@ -1,18 +1,21 @@
 import React from 'react'
 import {connect} from 'dva'
 import Helmet from 'react-helmet'
+import {TitleMask} from 'components'
 import styles from './index.less'
 
 @connect(({detail}) => detail)
 class Detail extends React.Component {
 
   componentWillReceiveProps(nextProps) {
-    this.lv.innerHTML = nextProps.body
+    if (nextProps.body !== this.props.body) {
+      this.lv.innerHTML = nextProps.body
+    }
   }
 
   render() {
 
-    const {css} = this.props
+    const {css, image,image_source, title} = this.props
 
     return (
       <div
@@ -24,10 +27,14 @@ class Detail extends React.Component {
             <link key={index} rel="stylesheet" href={item}/>
           ))}
         </Helmet>
+        <div className="imageTitle">
+          <img src={image}/>
+          <TitleMask title={title} copyright={image_source}/>
+        </div>
         <div
           ref={el => this.lv = el}
           className="detailBody"
-        ></div>
+        />
       </div>
     )
   }
