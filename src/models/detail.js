@@ -1,5 +1,5 @@
 import pathToRegexp from 'path-to-regexp'
-import {getNews} from "services/news"
+import {getNews, getNewsExtra} from "services/news"
 
 export default {
 
@@ -21,13 +21,27 @@ export default {
   effects: {
     * getDetail({payload}, {call, put}) {
       const data = yield call(getNews, payload)
-      yield put({type: 'setDetail', payload: data.data})
+      //获取评论、点赞等额外信息
+      const extraData = yield call(getNewsExtra, data.data.id)
+
+      yield put({
+        type: 'setDetail',
+        payload: {
+          ...data.data,
+          extra_data: {
+            ...extraData.data
+          }
+        }
+      })
     }
   },
 
   reducers: {
-    setDetail(state, {payload}) {
+    setDetail(_, {payload}) {
       return {...payload}
+    },
+    clearDetail() {
+      return {}
     }
   },
 

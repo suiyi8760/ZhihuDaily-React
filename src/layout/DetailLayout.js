@@ -1,26 +1,34 @@
 import {NavBar} from 'antd-mobile'
+import {connect} from 'dva'
 import {Switch, Route, Redirect} from 'dva/router'
 import {Iconfont} from 'components'
 import Detail from 'routes/detail'
 import styles from './DetailLayout.less'
 
+@connect(
+  ({detail: {extra_data}}) => extra_data || {}
+)
 class DetailLayout extends React.Component {
   render() {
-    const {history, match} = this.props
+    const {dispatch, history, match, comments, popularity} = this.props
 
     return (
       <div className={styles.DetailLayout}>
         <NavBar
           icon={<Iconfont type="back"/>}
-          onLeftClick={e => history.goBack()}
+          onLeftClick={e => {
+            history.goBack()
+            //返回时清空详情页的state
+            dispatch({type: 'detail/clearDetail'})
+          }}
           rightContent={[
             <div key={0}>
               <Iconfont type="share" style={{marginRight: '30px'}}/>
               <Iconfont type="collect" style={{marginRight: '30px'}}/>
             </div>,
             <div key={1}>
-              <Iconfont type="comment" style={{marginRight: '10px'}}>5</Iconfont>
-              <Iconfont type="fabulous">50</Iconfont>
+              <Iconfont type="comment" style={{marginRight: '14px'}}>{comments || '...'}</Iconfont>
+              <Iconfont type="fabulous">{popularity || '...'}</Iconfont>
             </div>
           ]}
         />
