@@ -11,7 +11,7 @@ import styles from './DetailLayout.less'
 class DetailLayout extends React.Component {
   render() {
     const {dispatch, loading, history, match, comments, popularity, id} = this.props
-    const isLoading = loading.effects['detail/getDetail']
+    const isLoading = loading.effects['comment/getExtraData']
 
     return (
       <div className={styles.DetailLayout}>

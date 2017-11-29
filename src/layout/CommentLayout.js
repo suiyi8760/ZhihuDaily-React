@@ -5,13 +5,12 @@ import {Iconfont} from 'components'
 import Comment from 'routes/comment'
 import styles from './CommentLayout.less'
 
-@connect(({comment: {comments}}) => ({comments}) || {})
+@connect(({comment: {comments}, loading}) => ({comments, loading}))
 class CommentLayout extends React.Component {
   render() {
 
-    const {match, history, comments} = this.props
-
-    console.log(this.props);
+    const {match, history, comments, loading} = this.props
+    const isLoading = loading.effects['comment/getExtraData']
 
     return (
       <div className={styles.CommentLayout}>
@@ -24,7 +23,11 @@ class CommentLayout extends React.Component {
             <Iconfont key={0} type="comment-pen"/>
           ]}
         >
-          {comments} 条评论
+          {/*当comments为空时产生加载状态*/}
+          {
+            comments === undefined ?
+              (isLoading ? '...' : comments) : comments
+          } 条评论
         </NavBar>
         <Switch>
           <Route path={`${match}/:id`} component={Comment}/>
