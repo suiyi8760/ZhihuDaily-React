@@ -3,7 +3,7 @@ import {dynamic} from 'dva'
 import {Switch, Route, Redirect, Router} from 'dva/router'
 import Helmet from 'react-helmet'
 import {config} from 'utils'
-import {BasicLayout, DetailLayout} from 'layout'
+import {BasicLayout, DetailLayout, CommentLayout} from 'layout'
 
 const {iconFontJS, iconFontCSS} = config
 
@@ -16,6 +16,7 @@ const Routers = ({history}) => {
       </Helmet>
       <Router history={history}>
         <Switch>
+          <Route path="/comment" component={CommentLayout}/>
           <Route path="/detail" component={DetailLayout}/>
           <Route path="/" component={BasicLayout}/>
           <Redirect to="/"/>
