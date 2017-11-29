@@ -8,7 +8,8 @@ const Iconfont = ({type, size = 'md', children, style}) => {
       <svg className={classnames('icon', `icon-${size}`)} aria-hidden="true">
         <use xlinkHref={`#icon-${type}`}></use>
       </svg>
-      {children && <span>{children}</span>}
+      {/*区分undefined和Number0*/}
+      {(children !== undefined ? true : null) && <span>{children}</span>}
     </div>
   )
 

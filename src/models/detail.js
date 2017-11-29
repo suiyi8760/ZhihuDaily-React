@@ -12,7 +12,9 @@ export default {
       history.listen(({pathname}) => {
         const match = pathToRegexp('/detail/:id').exec(pathname)
         if (match) {
-          dispatch({type: 'getDetail', payload: match[1]})
+          const id = match[1]
+          dispatch({type: 'getDetail', payload: id})
+          dispatch({type: 'comment/getExtraData', payload: id})
         }
       })
     }
@@ -21,17 +23,10 @@ export default {
   effects: {
     * getDetail({payload}, {call, put}) {
       const data = yield call(getNews, payload)
-      //获取评论、点赞等额外信息
-      const extraData = yield call(getNewsExtra, data.data.id)
 
       yield put({
         type: 'setDetail',
-        payload: {
-          ...data.data,
-          extra_data: {
-            ...extraData.data
-          }
-        }
+        payload: data.data
       })
     }
   },

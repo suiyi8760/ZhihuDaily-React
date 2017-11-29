@@ -1,16 +1,16 @@
 import {NavBar} from 'antd-mobile'
 import {connect} from 'dva'
-import {Switch, Route, Redirect} from 'dva/router'
+import {Switch, Route, Redirect, Link} from 'dva/router'
 import {Iconfont} from 'components'
 import Detail from 'routes/detail'
 import styles from './DetailLayout.less'
 
 @connect(
-  ({detail: {extra_data}, loading}) => ({...extra_data, loading})
+  ({detail: {id}, comment: {comments, popularity}, loading}) => ({comments, popularity, id, loading})
 )
 class DetailLayout extends React.Component {
   render() {
-    const {dispatch, loading, history, match, comments, popularity} = this.props
+    const {dispatch, loading, history, match, comments, popularity, id} = this.props
     const isLoading = loading.effects['detail/getDetail']
 
     return (
@@ -23,23 +23,22 @@ class DetailLayout extends React.Component {
             dispatch({type: 'detail/clearDetail'})
           }}
           rightContent={[
-            <div key={0}>
-              <Iconfont type="share" style={{marginRight: '30px'}}/>
-              <Iconfont type="collect" style={{marginRight: '30px'}}/>
-            </div>,
-            <div key={1}>
+            <Iconfont key={0} type="share" style={{marginRight: '30px'}}/>,
+            <Iconfont key={1} type="collect" style={{marginRight: '30px'}}/>,
+            <Link key={2} to={`/comment/${id}`}>
               <Iconfont type="comment" style={{marginRight: '14px'}}>
                 {isLoading ? '...' : comments}
-                </Iconfont>
-              <Iconfont type="fabulous">
-                {isLoading ? '...' : popularity}
-                </Iconfont>
-            </div>
+              </Iconfont>
+            </Link>,
+            <Iconfont key={3} type="fabulous">
+              {isLoading ? '...' : popularity}
+            </Iconfont>
+
           ]}
         />
         <Switch>
-          <Route path={`${match.url}/:id`} component={Detail}></Route>
-          <Route exact path={`${match.url}`} component={() => <Redirect to="/"/>}></Route>
+          <Route path={`${match.url}/:id`} component={Detail}/>
+          <Route exact path={`${match.url}`} component={() => <Redirect to="/"/>}/>
         </Switch>
       </div>
     )

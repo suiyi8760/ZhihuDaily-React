@@ -1,26 +1,25 @@
 import React from 'react'
 import {connect} from 'dva'
 import Helmet from 'react-helmet'
-import {TitleMask} from 'components'
+import {TitleMask, ScrollView} from 'components'
 import styles from './index.less'
 
 @connect(({detail}) => detail)
 class Detail extends React.Component {
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.body !== this.props.body) {
+    if (nextProps !== this.props) {
       this.lv.innerHTML = nextProps.body
     }
   }
 
   render() {
 
-    const {css, image,image_source, title} = this.props
+    const {css, image, image_source, title} = this.props
 
     return (
-      <div
+      <ScrollView
         className={styles.detailContent}
-        style={{height: document.documentElement.clientHeight - 45}}
       >
         <Helmet>
           {css && css.map((item, index) => (
@@ -33,9 +32,9 @@ class Detail extends React.Component {
         </div>
         <div
           ref={el => this.lv = el}
-          className="detailBody"
+          // className="detailBody"
         />
-      </div>
+      </ScrollView>
     )
   }
 }

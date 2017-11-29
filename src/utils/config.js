@@ -8,6 +8,7 @@ export default {
   api: {
     themes: `${apiUrl}/themes`,
     news: `${apiUrl}/news`,
-    news_extra:`${apiUrl}/story-extra`
+    newsExtra: `${apiUrl}/story-extra`,
+    comment: `${apiUrl}/story`
   },
 }
