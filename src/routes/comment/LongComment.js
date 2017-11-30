@@ -27,7 +27,8 @@ class LongComment extends React.Component {
               return (
                 <CommentPanel
                   key={id}
-                  {...commentPanelProps}/>
+                  {...commentPanelProps}
+                />
               )
             })
           }

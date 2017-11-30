@@ -16,28 +16,31 @@
         }
       }
 
-      .comment_header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .comment_header_left {
-          position: relative;
-          font-size: 15px;
-          font-weight: bold;
+      .content_right {
+        flex: 1;
+        .comment_header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .comment_header_left {
+            position: relative;
+            font-size: 15px;
+            font-weight: bold;
+          }
+          .comment_header_right {
+            color: @color-text-caption
+          }
         }
-        .comment_header_right {
-          color: @color-text-caption
-        }
-      }
 
-      .comment_content {
-        //padding-left: 40px;
-        font-size: @font-size-base;
-        p {
-          margin: 8px 0;
-        }
-        .comment_time {
-          color: @color-text-caption
+        .comment_content {
+          //padding-left: 40px;
+          font-size: @font-size-base;
+          p {
+            margin: 8px 0;
+          }
+          .comment_time {
+            color: @color-text-caption
+          }
         }
       }
     }
