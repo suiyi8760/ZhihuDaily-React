@@ -6,8 +6,8 @@ export default {
   namespace: 'comment',
 
   state: {
-    longComment: [],
-    shortComment: []
+    longCommentData: [],
+    shortCommentData: []
   },
 
   subscriptions: {
@@ -34,14 +34,14 @@ export default {
       })
     },
     * getComments({payload}, {call, put}) {
-      const {data: longComment} = yield call(getLongComment, payload)
-      const {data: shortComment} = yield call(getShortComment, payload)
+      const {data: {comments: longCommentData}} = yield call(getLongComment, payload)
+      const {data: {comments: shortCommentData}} = yield call(getShortComment, payload)
 
       yield put({
         type: 'setCommentData',
         payload: {
-          longComment,
-          shortComment
+          longCommentData,
+          shortCommentData
         }
       })
     }
@@ -54,11 +54,11 @@ export default {
         ...payload
       }
     },
-    setCommentData(state, {payload: {longComment, shortComment}}) {
+    setCommentData(state, {payload: {longCommentData, shortCommentData}}) {
       return {
         ...state,
-        longComment,
-        shortComment
+        longCommentData,
+        shortCommentData
       }
     },
     clearComments() {

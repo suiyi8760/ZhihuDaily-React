@@ -9,7 +9,7 @@ import styles from './CommentLayout.less'
 class CommentLayout extends React.Component {
   render() {
 
-    const {match, history, comments, loading} = this.props
+    const {match, history, dispatch, comments, loading} = this.props
     const isLoading = loading.effects['comment/getExtraData']
 
     return (
@@ -18,6 +18,7 @@ class CommentLayout extends React.Component {
           icon={<Iconfont type="back"/>}
           onLeftClick={e => {
             history.goBack()
+            dispatch({type:'comment/clearComments'})
           }}
           rightContent={[
             <Iconfont key={0} type="comment-pen"/>
@@ -30,7 +31,7 @@ class CommentLayout extends React.Component {
           } 条评论
         </NavBar>
         <Switch>
-          <Route path={`${match}/:id`} component={Comment}/>
+          <Route path={`${match.url}/:id`} component={Comment}/>
           <Route exact path={`${match.url}`} component={() => <Redirect to="/"/>}/>
         </Switch>
       </div>

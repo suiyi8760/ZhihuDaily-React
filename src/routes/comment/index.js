@@ -1,13 +1,12 @@
-import {Accrodion} from 'antd-mobile'
+import {ScrollView} from 'components'
+import LongComment from './LongComment'
 
-class Comment extends React.Component {
-  render() {
-    return (
-      <div>
-        Comment
-      </div>
-    )
-  }
+const Comment = () => {
+  return (
+    <ScrollView>
+      <LongComment/>
+    </ScrollView>
+  )
 }
 
 export default Comment
