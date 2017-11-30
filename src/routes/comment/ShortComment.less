@@ -1,0 +1,26 @@
+@import '~themes/vars';
+
+.ShortComment {
+  :global {
+    .am-accordion {
+      &::before{
+        background-color: transparent !important;
+      }
+      .am-accordion-item {
+        .am-accordion-header {
+          height: auto;
+          padding: 14px;
+          line-height: 1;
+          font-size: 14px;
+          border-bottom: 1px solid @border-color-base !important;
+          i {
+            top: auto;
+          }
+          &::after{
+            background-color: transparent !important;
+          }
+        }
+      }
+    }
+  }
+}

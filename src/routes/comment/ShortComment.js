@@ -2,6 +2,7 @@ import {Accordion} from 'antd-mobile'
 import {connect} from 'dva'
 import {Iconfont} from 'components'
 import CommentPanel from './CommentPanel'
+import styles from './ShortComment.less'
 
 @connect(({comment}) => comment)
 class LongComment extends React.Component {
@@ -10,7 +11,7 @@ class LongComment extends React.Component {
     const {short_comments, shortCommentData} = this.props
 
     return (
-      <div>
+      <div className={styles.ShortComment}>
         <Accordion>
           <Accordion.Panel header={` ${short_comments} 条短评`}>
             <div>
