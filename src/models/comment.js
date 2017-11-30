@@ -34,8 +34,8 @@ export default {
       })
     },
     * getComments({payload}, {call, put}) {
-      const longComment = yield call(getLongComment, payload)
-      const shortComment = yield call(getShortComment, payload)
+      const {data: longComment} = yield call(getLongComment, payload)
+      const {data: shortComment} = yield call(getShortComment, payload)
 
       yield put({
         type: 'setCommentData',
