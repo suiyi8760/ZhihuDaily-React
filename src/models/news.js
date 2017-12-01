@@ -42,7 +42,7 @@ export default {
 
   effects: {
 
-    * initNews(_, {call, put}) {
+    * initNews(_, {call}) {
       //初始化时分别获取今天、昨天、前天的热闻
       const date_latest = yield call(getNewsData, {
         payload: {
