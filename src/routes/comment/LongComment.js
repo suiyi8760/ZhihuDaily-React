@@ -15,13 +15,14 @@ class LongComment extends React.Component {
         <div>
           {
             longCommentData && longCommentData.map(item => {
-              const {id, avatar, author, likes, content, time} = item
+              const {id, avatar, author, likes, content, time, reply_to} = item
               const commentPanelProps = {
                 avatar,
                 author,
                 likes,
                 content,
-                time
+                time,
+                reply_to
               }
 
               return (

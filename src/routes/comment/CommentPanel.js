@@ -3,7 +3,7 @@ import {Iconfont} from 'components'
 import moment from 'moment'
 import styles from './CommentPanel.less'
 
-const CommentPanel = ({avatar, author, likes, content, time}) => {
+const CommentPanel = ({avatar, author, likes, content, time, reply_to}) => {
   return (
     <List.Item
       wrap
@@ -22,9 +22,19 @@ const CommentPanel = ({avatar, author, likes, content, time}) => {
             <Iconfont type="fabulous" size="xs">{likes}</Iconfont>
           </div>
         </div>
-        <div className="comment_content">
-          <p>{content}</p>
-          <div className="comment_time">{moment.unix(time).format('MM-DD HH:MM')}</div>
+        <div className="comment_body">
+          <div className="comment_content">
+            <p>{content}</p>
+            {
+              reply_to &&
+              <p>
+                <strong>//{reply_to.author}:</strong>{reply_to.content}
+              </p>
+            }
+          </div>
+          <div className="comment_footer">
+            <div className="comment_time">{moment.unix(time).format('MM-DD HH:MM')}</div>
+          </div>
         </div>
       </div>
     </List.Item>
