@@ -69,7 +69,7 @@ export default class NewsList extends React.Component {
   onEndReached = (event) => {
     console.log('reach end', event)
     const {dispatch, latestLoad} = this.props
-    dispatch({type: 'news/getBeforeNews', payload: latestLoad})
+    dispatch({type: 'news/getNews', payload: latestLoad})
   }
 
   render() {

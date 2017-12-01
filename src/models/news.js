@@ -1,4 +1,24 @@
 import {getNews} from 'services/news'
+import {effects} from 'dva/saga'
+
+const {call, put} = effects
+
+function* getNewsData({payload: {type, date}}) {
+  const {data} = yield call(getNews, `${type}${date ? `/${date}` : ''}`)
+  if (type === 'latest') {
+    yield put({
+      type: 'news/setLatestNews',
+      payload: data
+    })
+  } else {
+    yield put({
+      type: 'news/setBeforeNews',
+      payload: data
+    })
+  }
+  console.log(data);
+  return data.date
+}
 
 export default {
 
@@ -14,34 +34,42 @@ export default {
     setup({dispatch, history}) {
       history.listen(({pathname}) => {
         if (pathname === '/news') {
-          dispatch({type: 'getLatestNews'})
+          dispatch({type: 'initNews'})
         }
       })
     }
   },
 
   effects: {
-    * getLatestNews(_, {call, put}) {
-      const data = yield call(getNews, 'latest')
+
+    * initNews(_, {call, put}) {
       //初始化时分别获取今天、昨天、前天的热闻
-      yield put({
-        type: 'setLatestNews',
-        payload: data.data
+      const date_latest = yield call(getNewsData, {
+        payload: {
+          type: 'latest'
+        }
       })
-      yield put({
-        type: 'getBeforeNews',
-        payload: data.data.date
+
+      const date_before = yield call(getNewsData, {
+        payload: {
+          type: 'before',
+          date: date_latest
+        }
       })
-      yield put({
-        type: 'getBeforeNews',
-        payload: data.data.date - 1
+
+      yield call(getNewsData, {
+        payload: {
+          type: 'before',
+          date: date_before
+        }
       })
     },
-    * getBeforeNews({payload}, {call, put}) {
-      const data = yield call(getNews, `before/${payload}`)
-      yield put({
-        type: 'setBeforeNews',
-        payload: data.data
+    * getNews({payload}, {call}) {
+      yield call(getNewsData, {
+        payload: {
+          type: 'before',
+          date: payload
+        }
       })
     }
   },
