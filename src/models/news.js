@@ -16,7 +16,6 @@ function* getNewsData({payload: {type, date}}) {
       payload: data
     })
   }
-  console.log(data);
   return data.date
 }
 
