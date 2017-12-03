@@ -13,7 +13,7 @@
     "install-node": "6.11.1"
   },
   "dependencies": {
-    "antd-mobile": "^2.0.3",
+    "antd-mobile": "2.1.0",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.9.2",
     "classnames": "^2.2.5",
