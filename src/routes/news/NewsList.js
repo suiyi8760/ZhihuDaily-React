@@ -32,7 +32,7 @@ function genData(data) {
 }
 
 @connect(({news}) => news)
-export default class NewsList extends React.Component {
+class NewsList extends React.Component {
   constructor(props) {
     super(props)
 
@@ -49,7 +49,6 @@ export default class NewsList extends React.Component {
 
     this.state = {
       dataSource,
-      isLoading: true,
       height: document.documentElement.clientHeight - 45,
     }
   }
@@ -123,3 +122,5 @@ export default class NewsList extends React.Component {
     );
   }
 }
+
+export default NewsList

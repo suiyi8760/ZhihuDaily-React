@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
 import Helmet from 'react-helmet'
-import {Toast} from 'antd-mobile'
 import {TitleMask, ScrollView, LoadingHOC} from 'components'
 import styles from './index.less'
 
@@ -9,7 +8,7 @@ import styles from './index.less'
 class Detail extends React.Component {
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
+    if (nextProps !== this.props && !nextProps.isLoading) {
       this.lv.innerHTML = nextProps.body
     }
   }
@@ -41,4 +40,4 @@ class Detail extends React.Component {
   }
 }
 
-export default LoadingHOC(Detail,'detail/getDetail')
+export default LoadingHOC(Detail, 'detail/getDetail', 600)

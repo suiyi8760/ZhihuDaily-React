@@ -1,6 +1,5 @@
 import React from 'react'
-import {ListView} from 'antd-mobile'
-import NewsCarousel from './NewsCarousel'
+import {LoadingHOC} from 'components'
 import NewsList from './NewsList'
 
 const News = () => {
@@ -9,4 +8,4 @@ const News = () => {
   )
 }
 
-export default News
+export default LoadingHOC(News, 'news/initNews', 0)
