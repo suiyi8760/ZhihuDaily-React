@@ -6,6 +6,9 @@ const LoadingHOC = (WrapperComponent, loadingType, duration = 100) => {
 
   @connect(({loading}) => ({loading}))
   class LoadingComponent extends React.Component {
+    state = {
+      isLoading: true
+    }
 
     componentWillMount() {
       Toast.loading('加载中', 0)
@@ -13,22 +16,31 @@ const LoadingHOC = (WrapperComponent, loadingType, duration = 100) => {
 
     componentWillReceiveProps(nextProps) {
 
-      const loadingToastHandler = () => {
-        const curIsLoading = this.props.loading.effects[loadingType]
-        const nextIsLoading = nextProps.loading.effects[loadingType]
+      //用于批量检查各effects的loading状态是否为完成
+      const loadingToastHandler = type => {
+        const curIsLoading = this.props.loading.effects[type]
+        const nextIsLoading = nextProps.loading.effects[type]
 
-        if (curIsLoading !== nextIsLoading && !nextIsLoading) {
+        return (curIsLoading !== nextIsLoading && !nextIsLoading)
+      }
+
+      //如果是数组则遍历检查loading状态
+      if (Array.isArray(loadingType)) {
+        if (loadingType.every(loadingToastHandler)) {
+          this.setState({isLoading: false})
+          setTimeout(() => Toast.hide(), duration)
+        }
+      } else {
+        if (loadingToastHandler(loadingType)) {
+          this.setState({isLoading: false})
           setTimeout(() => Toast.hide(), duration)
         }
       }
 
-      loadingToastHandler()
-
     }
 
     render() {
-      const isLoading = this.props.loading.effects[loadingType]
-      return (<WrapperComponent isLoading={isLoading} {...this.props}/>)
+      return (<WrapperComponent isLoading={this.state.isLoading} {...this.props}/>)
     }
   }
 
