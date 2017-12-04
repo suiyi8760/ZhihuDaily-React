@@ -9,7 +9,7 @@ class Detail extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props && !nextProps.isLoading) {
-      this.lv.innerHTML = nextProps.body
+      this.lv.innerHTML = nextProps.body||''
     }
   }
 
