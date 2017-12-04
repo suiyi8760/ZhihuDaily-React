@@ -24,19 +24,15 @@ const LoadingHOC = (WrapperComponent, loadingType, duration = 100) => {
         return (curIsLoading !== nextIsLoading && !nextIsLoading)
       }
 
-      //如果是数组则遍历检查loading状态
-      if (Array.isArray(loadingType)) {
-        if (loadingType.every(loadingToastHandler)) {
-          this.setState({isLoading: false})
-          setTimeout(() => Toast.hide(), duration)
-        }
-      } else {
-        if (loadingToastHandler(loadingType)) {
-          this.setState({isLoading: false})
-          setTimeout(() => Toast.hide(), duration)
-        }
+      //如果是数组则用every遍历检查loading状态是否全部结束
+      if (Array.isArray(loadingType) && !loadingType.every(loadingToastHandler)) {
+        return
+      } else if (!Array.isArray(loadingType) && !loadingToastHandler(loadingType)) {
+        return
       }
 
+      this.setState({isLoading: false})
+      setTimeout(() => Toast.hide(), duration)
     }
 
     render() {
