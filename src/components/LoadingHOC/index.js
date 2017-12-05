@@ -32,13 +32,20 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
         const curIsLoading = this.props.loading[loadingModel][type]
         const nextIsLoading = nextProps.loading[loadingModel][type]
 
+        /*console.log(this.props.loading, nextProps.loading);
+        console.log(curIsLoading, nextIsLoading);*/
+
         return (curIsLoading !== nextIsLoading && !nextIsLoading)
       }
 
       //如果是数组则用every遍历检查loading状态是否全部结束
       if (Array.isArray(loadingType) && !loadingType.every(loadingToastHandler)) {
+
         return
       } else if (!Array.isArray(loadingType) && !loadingToastHandler(loadingType)) {
+        if (this.props.loading[loadingModel][loadingType] !== nextProps.loading[loadingModel][loadingType]) {
+          Toast.loading('加载中', 0)
+        }
         return
       }
 

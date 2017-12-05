@@ -29,7 +29,7 @@ const Comment = ({commentType, commentsNum, commentData, onChange}) => {
       return (
         <div className={styles.ShortComment}>
           <Accordion onChange={keys => onChange(keys)}>
-            <Accordion.Panel header={` ${commentsNum || '...'} 条短评`}>
+            <Accordion.Panel header={` ${commentsNum !== undefined ? commentsNum : '0'} 条短评`}>
               <div>
                 {
                   getCommentList(commentData)
@@ -42,7 +42,7 @@ const Comment = ({commentType, commentsNum, commentData, onChange}) => {
     case 'long':
       return (
         <div>
-          <div className={styles.long_comment_title}> {commentsNum || '...'} 条长评</div>
+          <div className={styles.long_comment_title}> {commentsNum !== undefined ? commentsNum : '0'} 条长评</div>
           <div>
             {
               getCommentList(commentData)
