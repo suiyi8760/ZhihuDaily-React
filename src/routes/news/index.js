@@ -8,4 +8,4 @@ const News = () => {
   )
 }
 
-export default LoadingHOC(News, 'news/initNews', 0)
+export default LoadingHOC(News, {loadingType: 'news/initNews', delay: 0})

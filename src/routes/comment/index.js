@@ -1,5 +1,5 @@
 import {connect} from 'dva'
-import {ScrollView} from 'components'
+import {ScrollView, LoadingHOC} from 'components'
 import CommentBody from './CommentBody'
 
 const Comment = ({long_comments, longCommentData, short_comments, shortCommentData}) => {
@@ -19,4 +19,4 @@ const Comment = ({long_comments, longCommentData, short_comments, shortCommentDa
   )
 }
 
-export default connect(({comment}) => comment)(Comment)
+export default connect(({comment}) => comment)(LoadingHOC(Comment, {loadingType: 'comment', loadingModel: 'models'}))

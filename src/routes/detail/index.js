@@ -9,7 +9,7 @@ class Detail extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props && !nextProps.isLoading) {
-      this.lv.innerHTML = nextProps.body||''
+      this.lv.innerHTML = nextProps.body || ''
     }
   }
 
@@ -40,4 +40,4 @@ class Detail extends React.Component {
   }
 }
 
-export default LoadingHOC(Detail, 'detail/getDetail', 600)
+export default LoadingHOC(Detail, {loadingType: 'detail/getDetail', delay: 600})
