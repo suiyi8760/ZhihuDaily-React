@@ -1,14 +1,22 @@
+import {connect} from 'dva'
 import {ScrollView} from 'components'
-import LongComment from './LongComment'
-import ShortComment from './ShortComment'
+import CommentBody from './CommentBody'
 
-const Comment = () => {
+const Comment = ({long_comments, longCommentData, short_comments, shortCommentData}) => {
   return (
     <ScrollView>
-      <LongComment/>
-      <ShortComment/>
+      <CommentBody
+        commentType="long"
+        commentsNum={long_comments}
+        commentData={longCommentData}
+      />
+      <CommentBody
+        commentType="short"
+        commentsNum={short_comments}
+        commentData={shortCommentData}
+      />
     </ScrollView>
   )
 }
 
-export default Comment
+export default connect(({comment}) => comment)(Comment)

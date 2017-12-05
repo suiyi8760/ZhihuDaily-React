@@ -62,7 +62,10 @@ export default {
       }
     },
     clearComments() {
-      return {}
+      return {
+        longCommentData: [],
+        shortCommentData: []
+      }
     }
   },
 
