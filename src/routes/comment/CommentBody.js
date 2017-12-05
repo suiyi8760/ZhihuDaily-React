@@ -23,13 +23,13 @@ const getCommentList = data => data.map(item => {
   )
 })
 
-const Comment = ({commentType, commentsNum, commentData}) => {
+const Comment = ({commentType, commentsNum, commentData, onChange}) => {
   switch (commentType) {
     case 'short':
       return (
         <div className={styles.ShortComment}>
-          <Accordion>
-            <Accordion.Panel header={` ${commentsNum} 条短评`}>
+          <Accordion onChange={keys => onChange(keys)}>
+            <Accordion.Panel header={` ${commentsNum || '...'} 条短评`}>
               <div>
                 {
                   getCommentList(commentData)
@@ -42,7 +42,7 @@ const Comment = ({commentType, commentsNum, commentData}) => {
     case 'long':
       return (
         <div>
-          <div className={styles.long_comment_title}> {commentsNum} 条长评</div>
+          <div className={styles.long_comment_title}> {commentsNum || '...'} 条长评</div>
           <div>
             {
               getCommentList(commentData)

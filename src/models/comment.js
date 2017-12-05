@@ -1,6 +1,11 @@
 import pathToRegexp from 'path-to-regexp'
 import {getExtra, getLongComment, getShortComment} from "services/comment"
 
+const typeMapFunc = {
+  long: getLongComment,
+  short: getShortComment
+}
+
 export default {
 
   namespace: 'comment',
@@ -17,7 +22,7 @@ export default {
         if (match) {
           const id = match[1]
           dispatch({type: 'getExtraData', payload: id})
-          dispatch({type: 'getComments', payload: id})
+          dispatch({type: 'getComments', payload: {id, type: 'long'}})
         }
       })
     }
@@ -33,15 +38,14 @@ export default {
         payload: data.data
       })
     },
-    * getComments({payload}, {call, put}) {
-      const {data: {comments: longCommentData}} = yield call(getLongComment, payload)
-      const {data: {comments: shortCommentData}} = yield call(getShortComment, payload)
+    * getComments({payload: {id, type}}, {call, put}) {
+      const {data: {comments}} = yield call(typeMapFunc[type], id)
 
       yield put({
         type: 'setCommentData',
         payload: {
-          longCommentData,
-          shortCommentData
+          type,
+          data: comments
         }
       })
     }
@@ -54,11 +58,10 @@ export default {
         ...payload
       }
     },
-    setCommentData(state, {payload: {longCommentData, shortCommentData}}) {
+    setCommentData(state, {payload: {type, data}}) {
       return {
         ...state,
-        longCommentData,
-        shortCommentData
+        [`${type}CommentData`]: data
       }
     },
     clearComments() {
