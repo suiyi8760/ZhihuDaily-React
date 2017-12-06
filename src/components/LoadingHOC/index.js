@@ -32,25 +32,30 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
         const curIsLoading = this.props.loading[loadingModel][type]
         const nextIsLoading = nextProps.loading[loadingModel][type]
 
-        /*console.log(this.props.loading, nextProps.loading);
-        console.log(curIsLoading, nextIsLoading);*/
-
-        return (curIsLoading !== nextIsLoading && !nextIsLoading)
+        console.log(curIsLoading, nextIsLoading, '+++++++');
+        return ((curIsLoading && curIsLoading !== nextIsLoading) && !nextIsLoading)
       }
+      console.log(loadingToastHandler(loadingType), '111');
 
       //如果是数组则用every遍历检查loading状态是否全部结束
       if (Array.isArray(loadingType) && !loadingType.every(loadingToastHandler)) {
-
+        this.setState({isLoading: true})
         return
       } else if (!Array.isArray(loadingType) && !loadingToastHandler(loadingType)) {
-        if (this.props.loading[loadingModel][loadingType] !== nextProps.loading[loadingModel][loadingType]) {
-          Toast.loading('加载中', 0)
-        }
+        this.setState({isLoading: true})
         return
       }
-
+      console.log(2);
       this.setState({isLoading: false})
       setTimeout(() => Toast.hide(), delay)
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+      console.log(this.state.isLoading, nextState.isLoading);
+      if (nextState.isLoading !== this.state.isLoading && nextState.isLoading) {
+        console.log(1);
+        Toast.loading('加载中', 0)
+      }
     }
 
     render() {

@@ -38,5 +38,5 @@ const Comment = ({
 }
 
 export default connect(({comment}) => comment)(
-  LoadingHOC(Comment, {loadingType: 'comment', loadingModel: 'models',delay:1000})
+  LoadingHOC(Comment, {loadingType: 'comment', loadingModel: 'models'})
 )
