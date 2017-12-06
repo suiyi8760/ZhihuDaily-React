@@ -22,20 +22,23 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
     }
 
     componentWillMount() {
+      console.log('componentWillMount');
       Toast.loading('加载中', 0)
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillUnmount(){
+      console.log('componentWillUnMount');
+    }
 
+    componentWillReceiveProps(nextProps) {
+      console.log('componentWillReceiveProps');
       //用于批量检查各effects的loading状态是否为完成
       const loadingToastHandler = type => {
         const curIsLoading = this.props.loading[loadingModel][type]
         const nextIsLoading = nextProps.loading[loadingModel][type]
 
-        console.log(curIsLoading, nextIsLoading, '+++++++');
-        return ((curIsLoading && curIsLoading !== nextIsLoading) && !nextIsLoading)
+        return !nextIsLoading
       }
-      console.log(loadingToastHandler(loadingType), '111');
 
       //如果是数组则用every遍历检查loading状态是否全部结束
       if (Array.isArray(loadingType) && !loadingType.every(loadingToastHandler)) {
@@ -45,13 +48,12 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
         this.setState({isLoading: true})
         return
       }
-      console.log(2);
       this.setState({isLoading: false})
       setTimeout(() => Toast.hide(), delay)
     }
 
     componentWillUpdate(nextProps, nextState) {
-      console.log(this.state.isLoading, nextState.isLoading);
+      console.log('componentWillUpdate');
       if (nextState.isLoading !== this.state.isLoading && nextState.isLoading) {
         console.log(1);
         Toast.loading('加载中', 0)
@@ -59,6 +61,7 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
     }
 
     render() {
+      console.log('render');
       return (<WrapperComponent isLoading={this.state.isLoading} {...this.props}/>)
     }
   }
