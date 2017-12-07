@@ -7,8 +7,14 @@ import styles from './CommentLayout.less'
 
 @connect(({comment: {comments}, loading}) => ({comments, loading}))
 class CommentLayout extends React.Component {
+
+  componentWillMount(){
+    console.log('componentWillMount CommentLayout');
+  }
+
   render() {
 
+    console.log('render COmmentLayout');
     const {match, history, dispatch, comments, loading} = this.props
     const isLoading = loading.effects['comment/getExtraData']
 
@@ -18,7 +24,7 @@ class CommentLayout extends React.Component {
           icon={<Iconfont type="back"/>}
           onLeftClick={e => {
             history.goBack()
-            dispatch({type:'comment/clearComments'})
+            // dispatch({type:'comment/clearComments'})
           }}
           rightContent={[
             <Iconfont key={0} type="comment-pen"/>

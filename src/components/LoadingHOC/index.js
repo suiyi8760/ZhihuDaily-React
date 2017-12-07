@@ -22,12 +22,12 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
     }
 
     componentWillMount() {
-      console.log('componentWillMount');
+      console.log('componentWillMount LoadingHOC');
       Toast.loading('加载中', 0)
     }
 
     componentWillUnmount(){
-      console.log('componentWillUnMount');
+      console.log('componentWillUnMount LoadingHOC');
     }
 
     componentWillReceiveProps(nextProps) {

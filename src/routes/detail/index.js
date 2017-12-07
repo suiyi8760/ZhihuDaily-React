@@ -7,6 +7,10 @@ import styles from './index.less'
 @connect(({detail}) => detail)
 class Detail extends React.Component {
 
+  componentWillUnmount(){
+    console.log('componentWillUnMount Detail');
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props && !nextProps.isLoading) {
       this.lv.innerHTML = nextProps.body || ''

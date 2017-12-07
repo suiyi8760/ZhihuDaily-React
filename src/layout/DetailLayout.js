@@ -9,6 +9,14 @@ import styles from './DetailLayout.less'
   ({detail: {id}, comment: {comments, popularity}, loading}) => ({comments, popularity, id, loading})
 )
 class DetailLayout extends React.Component {
+
+  componentWillMount(){
+    console.log("componentWillMount DetailLayout");
+  }
+
+  componentWillUnmount(){
+    console.log('componentWillUnMount DetailLayout');
+  }
   render() {
     const {dispatch, loading, history, match, comments, popularity, id} = this.props
     const isLoading = loading.effects['comment/getExtraData']
