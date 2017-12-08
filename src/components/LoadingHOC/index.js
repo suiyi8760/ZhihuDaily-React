@@ -43,14 +43,17 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
       const loadingDiffHandler = type => {
         const curIsLoading = curLoadingProp[type]
         const nextIsLoading = nextLoadingProp[type]
+        // console.log(`type:${type}`, `curIsLoading:${curIsLoading}`, `nextIsLoading:${nextIsLoading}`);
         return curIsLoading === nextIsLoading
       }
 
       //如果是数组则用every遍历检查loading状态是否有状态相同或未结束
       if (Array.isArray(loadingType)) {
         //状态没变化不做处理
+        // console.log(`isDiff:${loadingType.every(loadingDiffHandler)}`, `isLoading:${loadingType.some(loadingToastHandler)}`);
         if (loadingType.every(loadingDiffHandler)) return
-        if (loadingType.every(loadingToastHandler)) {
+        //使用some遍历只要有一个状态为loading都需要Toast弹出
+        if (loadingType.some(loadingToastHandler)) {
           this.setState({isLoading: true})
           return Toast.loading(this.state.loadingMsg, 0)
         }
