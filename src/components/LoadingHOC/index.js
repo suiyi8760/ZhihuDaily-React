@@ -19,38 +19,51 @@ const LoadingHOC = (WrapperComponent, {loadingType, loadingModel = 'effects', de
   class LoadingComponent extends React.Component {
 
     state = {
+      loadingMsg: '加载中',
       isLoading: true
     }
 
     componentWillMount() {
-      Toast.loading('加载中', 0)
+      Toast.loading(this.state.loadingMsg, 0)
     }
 
     componentWillReceiveProps(nextProps) {
+      const curLoadingProp = this.props.loading[loadingModel]
+      const nextLoadingProp = nextProps.loading[loadingModel]
+
       //用于批量检查各effects的loading状态是否为完成
       const loadingToastHandler = type => {
-        const curIsLoading = this.props.loading[loadingModel][type]
-        const nextIsLoading = nextProps.loading[loadingModel][type]
-
+        const curIsLoading = curLoadingProp[type]
+        const nextIsLoading = nextLoadingProp[type]
+        //排除true false/true true/false false,接受false true
         return !curIsLoading && nextIsLoading
       }
 
-      //如果是数组则用every遍历检查loading状态是否全部结束
-      if (Array.isArray(loadingType) && !loadingType.every(loadingToastHandler)) {
+      //批量检查状态是否没发生变化
+      const loadingDiffHandler = type => {
+        const curIsLoading = curLoadingProp[type]
+        const nextIsLoading = nextLoadingProp[type]
+        return curIsLoading === nextIsLoading
+      }
 
-        return
-      } else if (!Array.isArray(loadingType) && loadingToastHandler(loadingType)) {
-        // if (this.props.loading[loadingModel][loadingType] !== nextProps.loading[loadingModel][loadingType]) {
-          console.log(this.props.loading[loadingModel][loadingType],nextProps.loading[loadingModel][loadingType]);
-          Toast.loading('test', 0)
-        // }
-        return
+      //如果是数组则用every遍历检查loading状态是否有状态相同或未结束
+      if (Array.isArray(loadingType)) {
+        //状态没变化不做处理
+        if (loadingType.every(loadingDiffHandler)) return
+        if (loadingType.every(loadingToastHandler)) {
+          this.setState({isLoading: true})
+          return Toast.loading(this.state.loadingMsg, 0)
+        }
+      } else {
+        if (loadingDiffHandler(loadingType)) return
+        if (loadingToastHandler(loadingType)) {
+          this.setState({isLoading: true})
+          return Toast.loading(this.state.loadingMsg, 0)
+        }
       }
-      console.log(1);
-      if (this.props.loading[loadingModel][loadingType] !== nextProps.loading[loadingModel][loadingType]) {
-        this.setState({isLoading: false})
-        setTimeout(() => Toast.hide(), delay)
-      }
+
+      this.setState({isLoading: false})
+      setTimeout(() => Toast.hide(), delay)
     }
 
     render() {
