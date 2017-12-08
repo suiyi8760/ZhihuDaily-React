@@ -3,7 +3,7 @@
 .ShortComment {
   :global {
     .am-accordion {
-      &::before{
+      &::before {
         background-color: transparent !important;
       }
       .am-accordion-item {
@@ -16,7 +16,7 @@
           i {
             top: auto;
           }
-          &::after{
+          &::after {
             background-color: transparent !important;
           }
         }
@@ -30,4 +30,14 @@
   background-color: @fill-base;
   font-size: @font-size-base;
   border-bottom: 1px solid @border-color-base;
+  line-height: 1;
+}
+
+.NoneComment {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid @border-color-base;
+  color: @color-text-placeholder;
 }

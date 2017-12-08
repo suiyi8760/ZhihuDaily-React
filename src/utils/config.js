@@ -11,4 +11,8 @@ export default {
     newsExtra: `${apiUrl}/story-extra`,
     comment: `${apiUrl}/story`
   },
+  layoutSize: {
+    navHeight: 45,
+    commentTitleHeight: 43
+  }
 }

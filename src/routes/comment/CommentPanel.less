@@ -40,10 +40,34 @@
               margin: 8px 0;
               p {
                 margin: 0;
+                &.reply_text {
+                  span {
+                    color: @color-text-caption
+                  }
+                  &.toggled {
+                    height: 64px;
+                    overflow: hidden;
+                    ::after {
+                      display: block;
+                      height: 100%;
+                      width: 100%;
+                    }
+                  }
+                }
               }
             }
-            .comment_time {
-              color: @color-text-caption
+            .comment_footer {
+              display: flex;
+              justify-content: space-between;
+              .comment_time {
+                color: @color-text-caption
+              }
+              .comment_toggleBtn {
+                padding: 0px 10px;
+                background-color: @fill-btn-caption;
+                font-size: 13px;
+                color: @color-text-caption;
+              }
             }
           }
         }
