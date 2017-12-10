@@ -1,5 +1,5 @@
 import {Accordion} from 'antd-mobile'
-import {connect} from 'dva'
+import PropTypes from 'prop-types'
 import {Iconfont} from 'components'
 import {config} from 'utils'
 import CommentPanel from './CommentPanel'
@@ -36,16 +36,22 @@ const NoneComment = () => (
 
 class Comment extends React.Component {
 
+  static contextTypes = {
+    scrollEl: PropTypes.object,
+    scrollAnimate: PropTypes.func
+  }
+
   state = {
     keys: []
   }
 
   componentWillReceiveProps(nextProps) {
+    const {scrollEl, scrollAnimate} = this.context
     if (nextProps.commentData !== this.props.commentData && this.state.keys[0]) {
       setTimeout(() => {
-        console.log(1);
-        window.scrollTo(0, 100)
-      }, 2000)
+        console.log(scrollEl, this.ShortComment.offsetTop)
+        scrollAnimate(this.ShortComment.offsetTop)
+      }, 0)
     }
   }
 

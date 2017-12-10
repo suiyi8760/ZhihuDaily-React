@@ -1,23 +1,42 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import styles from './index.less'
 
-const ScrollView = ({children, style, className}) => {
+class ScrollView extends React.Component {
 
-  const defaultBodyStyle = {
-    height: document.documentElement.clientHeight - 45
+  static childContextTypes = {
+    scrollEl: PropTypes.object,
+    scrollAnimate: PropTypes.func
   }
 
-  return (
-    <div
-      className={classnames(styles.ScrollView, className)}
-      style={
-        style ? {...defaultBodyStyle, ...style} : defaultBodyStyle
+  getChildContext() {
+    return {
+      scrollEl: this.scrollViewDom,
+      scrollAnimate: (scrollTop) => {
+        this.scrollViewDom.scrollTop = scrollTop
       }
-    >
-      <div>{children}</div>
-    </div>
-  )
+    }
+  }
+
+  render() {
+    const {children, style, className} = this.props
+    const defaultBodyStyle = {
+      height: document.documentElement.clientHeight - 45
+    }
+
+    return (
+      <div
+        ref={el => this.scrollViewDom = el}
+        className={classnames(styles.ScrollView, className)}
+        style={
+          style ? {...defaultBodyStyle, ...style} : defaultBodyStyle
+        }
+      >
+        <div>{children}</div>
+      </div>
+    )
+  }
 }
 
 export default ScrollView
