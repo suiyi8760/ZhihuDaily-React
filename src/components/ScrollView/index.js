@@ -13,8 +13,12 @@ class ScrollView extends React.Component {
   getChildContext() {
     return {
       scrollEl: this.scrollViewDom,
-      scrollAnimate: (scrollTop) => {
-        this.scrollViewDom.scrollTop = scrollTop
+      scrollAnimate: (scrollTop,duration) => {
+        const animator = null
+        function smooth(timestamp) {
+          this.scrollViewDom.scrollTop = scrollTop
+        }
+        // this.scrollViewDom.scrollTop = scrollTop
       }
     }
   }
