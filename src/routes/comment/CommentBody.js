@@ -34,38 +34,52 @@ const NoneComment = () => (
   </div>
 )
 
-const Comment = ({commentType, commentsNum, commentData, onChange}) => {
-  switch (commentType) {
-    case 'short':
-      return (
-        <div className={styles.ShortComment}>
-          <Accordion onChange={keys => onChange(keys)}>
-            <Accordion.Panel header={` ${commentsNum !== undefined ? commentsNum : '0'} 条短评`}>
-              <div>
-                {
-                  getCommentList(commentData)
-                }
-              </div>
-            </Accordion.Panel>
-          </Accordion>
-        </div>
-      )
-    case 'long':
-      return (
-        <div>
-          <div className={styles.long_comment_title}> {commentsNum !== undefined ? commentsNum : '0'} 条长评</div>
-          {
-            commentsNum ?
-              (<div>
-                {
-                  getCommentList(commentData)
-                }
-              </div>) : <NoneComment/>
-          }
-        </div>
-      )
-    default:
-      return null
+class Comment extends React.Component {
+
+  state = {
+    keys: []
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.commentData !== this.props.commentData && this.state.keys[0]) {
+      setTimeout(() => {
+        console.log(1);
+        window.scrollTo(0, 100)
+      }, 2000)
+    }
+  }
+
+  render() {
+    const {commentType, commentsNum, commentData, onChange} = this.props
+    switch (commentType) {
+      case 'short':
+        return (
+          <div className={styles.ShortComment} ref={el => this.ShortComment = el}>
+            <Accordion onChange={keys => {
+              this.setState({keys})
+              onChange(keys)
+            }}>
+              <Accordion.Panel header={` ${commentsNum !== undefined ? commentsNum : '0'} 条短评`}>
+                <div>
+                  {getCommentList(commentData)}
+                </div>
+              </Accordion.Panel>
+            </Accordion>
+          </div>
+        )
+      case 'long':
+        return (
+          <div>
+            <div className={styles.long_comment_title}> {commentsNum !== undefined ? commentsNum : '0'} 条长评</div>
+            {
+              commentsNum ?
+                <div>{getCommentList(commentData)}</div> : <NoneComment/>
+            }
+          </div>
+        )
+      default:
+        return null
+    }
   }
 }
 

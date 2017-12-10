@@ -27,7 +27,7 @@ class CommentPanel extends React.Component {
   render() {
 
     const {avatar, author, likes, content, time, reply_to} = this.props
-    const {showToggledBtn} = this.state
+    const {showToggledBtn, toggled} = this.state
 
     return (
       <div className={styles.CommentPanel}>
@@ -52,11 +52,14 @@ class CommentPanel extends React.Component {
               <div className="comment_content">
                 <p>{content}</p>
                 {
-                  reply_to &&
-                  <p ref={el => this.reply = el} className={classnames("reply_text", {toggled: this.state.toggled})}>
-                    <strong>//{reply_to.author} :</strong>
-                    <span> {reply_to.content}</span>
-                  </p>
+                  reply_to && (
+                    !reply_to.status ?
+                      <p ref={el => this.reply = el}
+                         className={classnames("reply_text", {toggled: this.state.toggled})}>
+                        <strong>//{reply_to.author} :</strong>
+                        <span> {reply_to.content}</span>
+                      </p> : <div className={styles.comment_deleted}>{reply_to.error_msg}</div>
+                  )
                 }
               </div>
               <div className="comment_footer">
@@ -65,7 +68,11 @@ class CommentPanel extends React.Component {
             </div>
           </div>
         </List.Item>
-        {showToggledBtn && <div className={styles.comment_toggleBtn} onClick={this.toggleComment}>展开</div>}
+        {
+          showToggledBtn && <div className={styles.comment_toggleBtn} onClick={this.toggleComment}>
+            {toggled ? '展开' : '收起'}
+          </div>
+        }
       </div>
     )
   }
