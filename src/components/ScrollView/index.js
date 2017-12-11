@@ -26,7 +26,7 @@ class ScrollView extends React.Component {
           },
           easeIn: () => {
             const p = Math.min(1.0, (Date.now() - startTime) / duration)
-            this.scrollViewDom.scrollTop = scrollTop * p * (2 - p)
+            this.scrollViewDom.scrollTop = scrollTop * (1 - Math.pow(1 - p, 2))
             if (p < 1) {
               return this.requestId = window.requestAnimationFrame(animateFunc[animateType])
             }
