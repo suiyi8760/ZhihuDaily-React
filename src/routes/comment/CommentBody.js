@@ -47,12 +47,12 @@ class Comment extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {scrollEl, scrollAnimate} = this.context
-    console.log(this.state.keysChanged);
+    const {scrollAnimate} = this.context
+    // 如果keys不为空且keysChanged为true即comment是刚展开
     if (nextProps.commentData !== this.props.commentData && this.state.keys[0] && this.state.keysChanged) {
+      // 展开后keysChanged重置为false
       this.setState({keysChanged: false})
       setTimeout(() => {
-        console.log(scrollEl, this.ShortComment.offsetTop)
         scrollAnimate(this.ShortComment.offsetTop)
       })
     }
@@ -66,6 +66,7 @@ class Comment extends React.Component {
           <div className={styles.ShortComment} ref={el => this.ShortComment = el}>
             <Accordion onChange={keys => {
               this.setState({keys})
+              // 如果keys由无变有则更改keysChange为true
               if (keys[0] && !this.state.keysChanged) {
                 this.setState({keysChanged: true})
               }

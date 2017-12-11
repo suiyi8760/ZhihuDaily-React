@@ -13,20 +13,24 @@ class ScrollView extends React.Component {
   getChildContext() {
     return {
       scrollEl: this.scrollViewDom,
-      scrollAnimate: (scrollTop, duration = 300, animateType = 'linear') => { //1s 60f duration:1s distance:scrollTop
+      scrollAnimate: (scrollTop, duration = 800, animateType = 'easeIn') => {
         let startTime = Date.now()
         const animateFunc = {
           linear: () => {
             const p = Math.min(1, (Date.now() - startTime) / duration)
-
             this.scrollViewDom.scrollTop = scrollTop * p
-
-            if (p < 1) return this.requestId = window.requestAnimationFrame(animateFunc[animateType])
-
+            if (p < 1) {
+              return this.requestId = window.requestAnimationFrame(animateFunc[animateType])
+            }
             window.cancelAnimationFrame(this.requestId)
           },
           easeIn: () => {
-
+            const p = Math.min(1.0, (Date.now() - startTime) / duration)
+            this.scrollViewDom.scrollTop = scrollTop * p * (2 - p)
+            if (p < 1) {
+              return this.requestId = window.requestAnimationFrame(animateFunc[animateType])
+            }
+            window.cancelAnimationFrame(this.requestId)
           }
         }
         this.requestId = window.requestAnimationFrame(animateFunc[animateType])
@@ -34,8 +38,7 @@ class ScrollView extends React.Component {
     }
   }
 
-  componentWillUnMount(){
-    console.log(this.requestId);
+  componentWillUnmount() {
     window.cancelAnimationFrame(this.requestId)
   }
 
