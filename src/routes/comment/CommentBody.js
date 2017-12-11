@@ -42,16 +42,19 @@ class Comment extends React.Component {
   }
 
   state = {
+    keysChanged: false,
     keys: []
   }
 
   componentWillReceiveProps(nextProps) {
     const {scrollEl, scrollAnimate} = this.context
-    if (nextProps.commentData !== this.props.commentData && this.state.keys[0]) {
+    console.log(this.state.keysChanged);
+    if (nextProps.commentData !== this.props.commentData && this.state.keys[0] && this.state.keysChanged) {
+      this.setState({keysChanged: false})
       setTimeout(() => {
         console.log(scrollEl, this.ShortComment.offsetTop)
         scrollAnimate(this.ShortComment.offsetTop)
-      }, 0)
+      })
     }
   }
 
@@ -63,6 +66,9 @@ class Comment extends React.Component {
           <div className={styles.ShortComment} ref={el => this.ShortComment = el}>
             <Accordion onChange={keys => {
               this.setState({keys})
+              if (keys[0] && !this.state.keysChanged) {
+                this.setState({keysChanged: true})
+              }
               onChange(keys)
             }}>
               <Accordion.Panel header={` ${commentsNum !== undefined ? commentsNum : '0'} 条短评`}>
