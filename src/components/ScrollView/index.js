@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import {easing} from 'utils'
 import styles from './index.less'
 
 class ScrollView extends React.Component {
@@ -13,20 +14,22 @@ class ScrollView extends React.Component {
   getChildContext() {
     return {
       scrollEl: this.scrollViewDom,
-      scrollAnimate: (scrollTop, duration = 800, animateType = 'easeIn') => {
+      scrollAnimate: (scrollTop, duration = 2000, animateType = 'easeInOutQuad') => {
         let startTime = Date.now()
         const animateFunc = {
           linear: () => {
             const p = Math.min(1, (Date.now() - startTime) / duration)
-            this.scrollViewDom.scrollTop = scrollTop * p
+            this.scrollViewDom.scrollTop = scrollTop * easing[animateType](p)
             if (p < 1) {
               return this.requestId = window.requestAnimationFrame(animateFunc[animateType])
             }
             window.cancelAnimationFrame(this.requestId)
           },
-          easeIn: () => {
+          easeInOutQuad: () => {
             const p = Math.min(1.0, (Date.now() - startTime) / duration)
-            this.scrollViewDom.scrollTop = scrollTop * (1 - Math.pow(1 - p, 2))
+            this.scrollViewDom.scrollTop += Math.ceil((scrollTop - this.scrollViewDom.scrollTop) * easing[animateType](p))
+            // this.scrollViewDom.scrollTop = scrollTop * easing[animateType](p)
+            console.log(this.scrollViewDom.scrollTop);
             if (p < 1) {
               return this.requestId = window.requestAnimationFrame(animateFunc[animateType])
             }
